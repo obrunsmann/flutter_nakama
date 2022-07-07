@@ -459,4 +459,16 @@ class NakamaRestApiClient extends NakamaBaseClient {
 
     return LeaderboardRecordList()..mergeFromProto3Json(res.body!.toJson());
   }
+
+  @override
+  Future<Rpc> rpc({
+    required model.Session session,
+    required String id,
+    String? payload,
+  }) async {
+    _session = session;
+
+    final res = await _api.nakamaRpcFunc(id: id, body: payload);
+    return Rpc()..mergeFromProto3Json(res.body!.toJson());
+  }
 }
